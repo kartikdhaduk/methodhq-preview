@@ -1,0 +1,703 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>MethodHQ — Marketing that moves the needle</title>
+<meta name="description" content="MethodHQ is a boutique marketing partner for ambitious brands. Strategy, branding, web design and events — done right." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  /* ---------- TOKENS ---------- */
+  :root{
+    --navy:#1E48B5;
+    --navy-900:#0F2A6B;
+    --sky:#83C5F4;
+    --cream:#F7F3EC;
+    --cream-2:#EFE8DB;
+    --paper:#FBFAF7;
+    --ink:#0F1626;
+    --ink-2:#1A1F2E;
+    --muted:#6B7280;
+    --line:rgba(15,22,38,.12);
+    --radius-sm:6px;
+    --radius:14px;
+    --radius-lg:24px;
+    --shadow-sm:0 1px 2px rgba(15,22,38,.06), 0 1px 1px rgba(15,22,38,.04);
+    --shadow:0 10px 30px -12px rgba(15,22,38,.18), 0 2px 6px rgba(15,22,38,.06);
+    --shadow-lg:0 30px 60px -20px rgba(15,22,38,.25);
+    --serif:'Playfair Display', Georgia, serif;
+    --sans:'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    --container:1240px;
+    --ease:cubic-bezier(.2,.8,.2,1);
+  }
+
+  /* ---------- RESET ---------- */
+  *,*::before,*::after{box-sizing:border-box}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{
+    margin:0;
+    font-family:var(--sans);
+    font-size:17px;
+    line-height:1.65;
+    color:var(--ink);
+    background:var(--paper);
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  img,svg,video{display:block;max-width:100%;height:auto}
+  a{color:inherit;text-decoration:none}
+  button{font:inherit;cursor:pointer;border:0;background:none}
+  ::selection{background:var(--navy);color:#fff}
+
+  h1,h2,h3,h4{font-family:var(--serif);font-weight:500;letter-spacing:-.015em;color:var(--ink);margin:0;line-height:1.08}
+  h1{font-size:clamp(2.6rem,6.2vw,5.2rem)}
+  h2{font-size:clamp(2rem,4vw,3.4rem);line-height:1.1}
+  h3{font-size:clamp(1.35rem,2vw,1.7rem);line-height:1.2}
+  p{margin:0}
+  .eyebrow{
+    font-family:var(--sans);
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:.18em;
+    font-weight:600;
+    color:var(--navy);
+    display:inline-flex;align-items:center;gap:10px;
+  }
+  .eyebrow::before{content:"";width:24px;height:1px;background:var(--navy)}
+
+  .container{max-width:var(--container);margin:0 auto;padding:0 28px}
+  section{padding:clamp(72px,9vw,140px) 0}
+
+  /* ---------- BUTTONS ---------- */
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;
+    padding:16px 26px;
+    border-radius:999px;
+    font-weight:600;font-size:15px;
+    transition:transform .25s var(--ease), box-shadow .25s var(--ease), background .25s var(--ease), color .25s var(--ease);
+    will-change:transform;
+  }
+  .btn-primary{background:var(--ink);color:#fff}
+  .btn-primary:hover{background:var(--navy);transform:translateY(-2px);box-shadow:var(--shadow)}
+  .btn-secondary{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+  .btn-secondary:hover{background:var(--ink);color:#fff;transform:translateY(-2px)}
+  .btn .arrow{transition:transform .25s var(--ease)}
+  .btn:hover .arrow{transform:translateX(4px)}
+
+  /* ---------- NAV ---------- */
+  .nav{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    backdrop-filter:saturate(180%) blur(14px);
+    background:rgba(251,250,247,.78);
+    border-bottom:1px solid transparent;
+    transition:border-color .3s var(--ease), background .3s var(--ease);
+  }
+  .nav.scrolled{border-color:var(--line)}
+  .nav-inner{
+    max-width:var(--container);margin:0 auto;padding:18px 28px;
+    display:flex;align-items:center;justify-content:space-between;gap:24px;
+  }
+  .logo{font-family:var(--serif);font-size:26px;font-weight:600;letter-spacing:-.02em;display:flex;align-items:center;gap:8px}
+  .logo .dot{width:9px;height:9px;border-radius:50%;background:var(--navy);display:inline-block;margin-bottom:6px}
+  .nav-links{display:flex;gap:36px;align-items:center}
+  .nav-links a{font-size:14.5px;font-weight:500;color:var(--ink-2);position:relative;padding:6px 0}
+  .nav-links a::after{
+    content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--ink);
+    transform:scaleX(0);transform-origin:right;transition:transform .3s var(--ease);
+  }
+  .nav-links a:hover::after{transform:scaleX(1);transform-origin:left}
+  .nav-cta{padding:12px 22px;font-size:14px}
+  .menu-toggle{display:none}
+
+  /* ---------- HERO ---------- */
+  .hero{padding:160px 0 90px;position:relative;overflow:hidden}
+  .hero::before{
+    content:"";position:absolute;inset:0;
+    background:radial-gradient(ellipse 60% 50% at 85% 20%, rgba(131,197,244,.18), transparent 60%);
+    pointer-events:none;
+  }
+  .hero-grid{
+    display:grid;grid-template-columns:1.15fr .85fr;gap:64px;align-items:center;position:relative;
+  }
+  .hero-copy{max-width:640px}
+  .hero h1{margin:22px 0 24px}
+  .hero h1 em{font-style:italic;color:var(--navy);font-weight:400}
+  .hero-sub{font-size:19px;line-height:1.6;color:var(--muted);max-width:520px;margin-bottom:38px}
+  .hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:56px}
+  .hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;max-width:520px;padding-top:32px;border-top:1px solid var(--line)}
+  .stat .num{font-family:var(--serif);font-size:34px;font-weight:600;color:var(--ink);line-height:1}
+  .stat .num em{font-style:italic;color:var(--navy);font-weight:400}
+  .stat .label{font-size:13px;color:var(--muted);margin-top:6px;line-height:1.4}
+
+  .hero-visual{position:relative;aspect-ratio:4/5;border-radius:var(--radius-lg);overflow:hidden;background:var(--cream-2);box-shadow:var(--shadow-lg)}
+  .hero-visual img{width:100%;height:100%;object-fit:cover}
+  .hero-visual::after{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg,transparent 60%,rgba(15,22,38,.14));
+    pointer-events:none;
+  }
+  .hero-badge{
+    position:absolute;left:-22px;bottom:36px;
+    background:#fff;border-radius:14px;padding:18px 22px;
+    box-shadow:var(--shadow);
+    display:flex;align-items:center;gap:14px;max-width:260px;
+  }
+  .hero-badge .avatar{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--navy),var(--sky));flex-shrink:0;display:grid;place-items:center;color:#fff;font-weight:600;font-family:var(--serif);font-size:17px}
+  .hero-badge .meta{font-size:12.5px;line-height:1.4}
+  .hero-badge .meta strong{display:block;color:var(--ink);font-size:13.5px;font-weight:600}
+  .hero-badge .meta span{color:var(--muted)}
+  .hero-tag{
+    position:absolute;top:24px;right:24px;
+    background:rgba(255,255,255,.92);backdrop-filter:blur(8px);
+    padding:10px 16px;border-radius:999px;font-size:12px;font-weight:600;
+    color:var(--ink);display:inline-flex;align-items:center;gap:8px;
+  }
+  .hero-tag .pulse{width:8px;height:8px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 0 rgba(34,197,94,.6);animation:pulse 2s infinite}
+  @keyframes pulse{
+    0%{box-shadow:0 0 0 0 rgba(34,197,94,.5)}
+    70%{box-shadow:0 0 0 10px rgba(34,197,94,0)}
+    100%{box-shadow:0 0 0 0 rgba(34,197,94,0)}
+  }
+
+  /* ---------- LOGO MARQUEE ---------- */
+  .marquee{
+    background:var(--cream);
+    padding:42px 0;
+    border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    overflow:hidden;
+  }
+  .marquee-label{
+    text-align:center;font-size:12px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--muted);font-weight:600;margin-bottom:28px;
+  }
+  .marquee-track{
+    display:flex;gap:80px;align-items:center;animation:scroll 28s linear infinite;
+    width:max-content;
+  }
+  @media (prefers-reduced-motion:reduce){.marquee-track{animation:none;justify-content:center;flex-wrap:wrap}}
+  @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  .marquee-item{
+    font-family:var(--serif);font-size:30px;font-weight:500;color:var(--ink-2);
+    opacity:.55;white-space:nowrap;letter-spacing:-.01em;
+    transition:opacity .3s var(--ease);
+  }
+  .marquee-item:hover{opacity:1}
+
+  /* ---------- SERVICES ---------- */
+  .services-head{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:end;margin-bottom:64px}
+  .services-head p{color:var(--muted);font-size:18px;max-width:480px}
+  .services-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+  .service-card{
+    position:relative;padding:38px;border-radius:var(--radius-lg);
+    background:#fff;border:1px solid var(--line);
+    transition:transform .35s var(--ease), box-shadow .35s var(--ease), border-color .35s var(--ease);
+    overflow:hidden;
+  }
+  .service-card::before{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(135deg,var(--navy) 0%,var(--navy-900) 100%);
+    opacity:0;transition:opacity .4s var(--ease);z-index:0;
+  }
+  .service-card > *{position:relative;z-index:1}
+  .service-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:transparent}
+  .service-card:hover::before{opacity:1}
+  .service-card:hover h3,.service-card:hover .svc-num,.service-card:hover .svc-desc,.service-card:hover .svc-link{color:#fff}
+  .service-card:hover .svc-num{opacity:.4}
+  .service-card:hover .svc-icon{background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.25)}
+  .svc-num{
+    font-family:var(--serif);font-size:14px;font-style:italic;color:var(--muted);
+    transition:color .35s var(--ease);
+  }
+  .svc-icon{
+    width:54px;height:54px;border-radius:14px;background:var(--cream);
+    border:1px solid var(--line);
+    display:grid;place-items:center;color:var(--navy);
+    margin:18px 0 28px;
+    transition:all .35s var(--ease);
+  }
+  .service-card h3{margin-bottom:12px;transition:color .35s var(--ease)}
+  .svc-desc{color:var(--muted);font-size:15.5px;line-height:1.6;margin-bottom:24px;transition:color .35s var(--ease)}
+  .svc-link{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:var(--ink);transition:color .35s var(--ease)}
+  .svc-link svg{transition:transform .25s var(--ease)}
+  .service-card:hover .svc-link svg{transform:translateX(4px)}
+
+  /* ---------- WORK / CASE STUDIES ---------- */
+  .work{background:var(--cream)}
+  .work-head{text-align:center;max-width:680px;margin:0 auto 72px}
+  .work-head h2{margin:18px 0 16px}
+  .work-head p{color:var(--muted);font-size:18px}
+  .work-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:28px}
+  .case{
+    position:relative;border-radius:var(--radius-lg);overflow:hidden;
+    aspect-ratio:4/5;background:#0F2A6B;
+    cursor:pointer;
+  }
+  .case:nth-child(2){aspect-ratio:4/5;margin-top:60px}
+  .case-img{
+    position:absolute;inset:0;
+    background-size:cover;background-position:center;
+    transition:transform .8s var(--ease);
+  }
+  .case:hover .case-img{transform:scale(1.06)}
+  .case::after{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg,rgba(15,22,38,.0) 30%,rgba(15,22,38,.85));
+  }
+  .case-1 .case-img{background:linear-gradient(135deg,#1E48B5 0%,#0F2A6B 100%)}
+  .case-2 .case-img{background:linear-gradient(135deg,#83C5F4 0%,#1E48B5 100%)}
+  .case-content{
+    position:absolute;left:0;right:0;bottom:0;padding:40px;color:#fff;z-index:2;
+  }
+  .case-tag{
+    display:inline-block;padding:6px 14px;border-radius:999px;
+    background:rgba(255,255,255,.16);backdrop-filter:blur(8px);
+    font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;
+    margin-bottom:18px;border:1px solid rgba(255,255,255,.2);
+  }
+  .case-content h3{color:#fff;font-size:clamp(1.6rem,2.6vw,2.2rem);margin-bottom:14px}
+  .case-stat{
+    display:flex;align-items:baseline;gap:14px;margin-top:24px;
+    padding-top:24px;border-top:1px solid rgba(255,255,255,.2);
+  }
+  .case-stat .big{font-family:var(--serif);font-size:54px;font-weight:600;line-height:.9}
+  .case-stat .big em{font-style:italic;color:var(--sky);font-weight:400}
+  .case-stat .label{font-size:13px;opacity:.8;line-height:1.4}
+  .work-cta{text-align:center;margin-top:64px}
+
+  /* ---------- ABOUT / FOUNDER ---------- */
+  .about-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:80px;align-items:center}
+  .about-img{
+    aspect-ratio:5/6;border-radius:var(--radius-lg);overflow:hidden;
+    background:var(--cream-2);position:relative;box-shadow:var(--shadow);
+  }
+  .about-img img{width:100%;height:100%;object-fit:cover}
+  .about-img::before{
+    content:"";position:absolute;left:-20px;top:-20px;right:20px;bottom:20px;
+    border:1px solid var(--navy);border-radius:var(--radius-lg);z-index:-1;
+  }
+  .about h2{margin:18px 0 24px}
+  .about-lead{font-size:20px;line-height:1.55;color:var(--ink-2);margin-bottom:24px;font-family:var(--serif);font-style:italic}
+  .about p:not(.about-lead){color:var(--muted);font-size:16px;line-height:1.7;margin-bottom:18px}
+  .about-sign{display:flex;align-items:center;gap:18px;margin-top:36px;padding-top:30px;border-top:1px solid var(--line)}
+  .about-sign-name{font-family:var(--serif);font-size:22px;font-weight:600}
+  .about-sign-role{font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-top:2px}
+
+  /* ---------- PROCESS ---------- */
+  .process{background:var(--ink);color:#fff}
+  .process h2{color:#fff}
+  .process .eyebrow{color:var(--sky)}
+  .process .eyebrow::before{background:var(--sky)}
+  .process-head{max-width:680px;margin-bottom:72px}
+  .process-head p{color:rgba(255,255,255,.7);font-size:18px;margin-top:18px}
+  .process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid rgba(255,255,255,.14)}
+  .step{padding:48px 32px 48px 0;border-right:1px solid rgba(255,255,255,.14);position:relative}
+  .step:last-child{border-right:0;padding-right:0}
+  .step:not(:first-child){padding-left:32px}
+  .step-num{font-family:var(--serif);font-size:14px;font-style:italic;color:var(--sky);margin-bottom:30px;display:block}
+  .step h3{color:#fff;font-size:1.6rem;margin-bottom:14px}
+  .step p{color:rgba(255,255,255,.65);font-size:15px;line-height:1.65}
+
+  /* ---------- TESTIMONIAL ---------- */
+  .testimonial{background:var(--cream);text-align:center}
+  .testimonial-inner{max-width:880px;margin:0 auto;padding:0 24px}
+  .testimonial blockquote{
+    font-family:var(--serif);font-size:clamp(1.6rem,3.2vw,2.5rem);
+    line-height:1.35;margin:32px 0 40px;font-weight:400;
+  }
+  .testimonial blockquote em{color:var(--navy);font-style:italic}
+  .testimonial-author{display:inline-flex;align-items:center;gap:16px;margin-top:8px}
+  .testimonial-author .avatar{width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,var(--navy),var(--sky));display:grid;place-items:center;color:#fff;font-family:var(--serif);font-size:20px;font-weight:600}
+  .testimonial-author .info{text-align:left}
+  .testimonial-author strong{display:block;font-size:15px;font-weight:600}
+  .testimonial-author span{font-size:13px;color:var(--muted)}
+
+  /* ---------- FINAL CTA ---------- */
+  .cta-band{padding:90px 0}
+  .cta-card{
+    background:linear-gradient(135deg,var(--navy) 0%,var(--navy-900) 100%);
+    color:#fff;border-radius:var(--radius-lg);padding:clamp(48px,6vw,90px);
+    position:relative;overflow:hidden;
+  }
+  .cta-card::before{
+    content:"";position:absolute;right:-100px;top:-100px;width:480px;height:480px;
+    background:radial-gradient(circle,rgba(131,197,244,.25),transparent 60%);
+    pointer-events:none;
+  }
+  .cta-card-grid{display:grid;grid-template-columns:1.4fr .6fr;gap:48px;align-items:end;position:relative}
+  .cta-card h2{color:#fff;font-size:clamp(2.2rem,4.6vw,4rem)}
+  .cta-card h2 em{color:var(--sky);font-style:italic;font-weight:400}
+  .cta-card p{color:rgba(255,255,255,.78);font-size:18px;margin-top:20px;max-width:520px}
+  .cta-card .btn-primary{background:#fff;color:var(--ink)}
+  .cta-card .btn-primary:hover{background:var(--sky);color:var(--ink)}
+  .cta-card-actions{display:flex;flex-direction:column;align-items:flex-start;gap:18px}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:var(--ink);color:rgba(255,255,255,.7);padding:80px 0 36px}
+  .foot-grid{display:grid;grid-template-columns:1.4fr .6fr .6fr .6fr;gap:48px;margin-bottom:64px}
+  .foot-brand .logo{color:#fff;margin-bottom:18px}
+  .foot-brand p{font-size:15px;line-height:1.65;max-width:340px}
+  .foot-col h4{font-family:var(--sans);font-size:12px;text-transform:uppercase;letter-spacing:.16em;color:#fff;margin-bottom:22px;font-weight:600}
+  .foot-col ul{list-style:none;padding:0;margin:0}
+  .foot-col li{margin-bottom:12px}
+  .foot-col a{font-size:14.5px;transition:color .2s}
+  .foot-col a:hover{color:#fff}
+  .foot-bottom{
+    padding-top:32px;border-top:1px solid rgba(255,255,255,.12);
+    display:flex;justify-content:space-between;align-items:center;font-size:13px;flex-wrap:wrap;gap:16px;
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:1024px){
+    .hero-grid{grid-template-columns:1fr;gap:56px}
+    .hero-visual{max-width:520px;margin:0 auto}
+    .services-head{grid-template-columns:1fr;gap:24px}
+    .work-grid{grid-template-columns:1fr;gap:24px}
+    .case:nth-child(2){margin-top:0}
+    .about-grid{grid-template-columns:1fr;gap:48px}
+    .about-img{max-width:420px}
+    .process-grid{grid-template-columns:repeat(2,1fr)}
+    .step{border-right:0;border-bottom:1px solid rgba(255,255,255,.14);padding:36px 0}
+    .step:nth-child(odd){padding-right:24px;border-right:1px solid rgba(255,255,255,.14)}
+    .step:nth-child(even){padding-left:24px}
+    .cta-card-grid{grid-template-columns:1fr;gap:32px;align-items:start}
+    .foot-grid{grid-template-columns:1fr 1fr;gap:36px}
+  }
+  @media (max-width:720px){
+    .nav-links{display:none}
+    .menu-toggle{display:grid;place-items:center;width:42px;height:42px;border-radius:50%;border:1px solid var(--line)}
+    .container{padding:0 22px}
+    .hero{padding:130px 0 60px}
+    .hero-stats{grid-template-columns:1fr 1fr;gap:24px}
+    .services-grid{grid-template-columns:1fr}
+    .service-card{padding:30px}
+    .foot-grid{grid-template-columns:1fr;gap:36px}
+    .foot-bottom{flex-direction:column;text-align:center}
+    .hero-badge{left:0;bottom:-20px}
+  }
+</style>
+</head>
+<body>
+
+<!-- ========== NAV ========== -->
+<header class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#" class="logo" aria-label="MethodHQ home">
+      Method<span class="dot"></span>
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#services">Services</a>
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+      <a href="#blog">Blog</a>
+    </nav>
+    <a href="#contact" class="btn btn-primary nav-cta">
+      Let's Chat
+      <svg class="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
+    <button class="menu-toggle" aria-label="Open menu">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="8" x2="20" y2="8"/><line x1="4" y1="16" x2="20" y2="16"/></svg>
+    </button>
+  </div>
+</header>
+
+<!-- ========== HERO ========== -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <span class="eyebrow">Boutique Marketing Studio</span>
+        <h1>Marketing that<br>moves the <em>needle.</em></h1>
+        <p class="hero-sub">We're the outsourced marketing team for ambitious brands — turning bold ideas into revenue with strategy, design and storytelling that actually works.</p>
+        <div class="hero-ctas">
+          <a href="#contact" class="btn btn-primary">
+            Start a project
+            <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+          <a href="#work" class="btn btn-secondary">See our work</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat"><div class="num">121<em>%</em></div><div class="label">YoY revenue<br>growth delivered</div></div>
+          <div class="stat"><div class="num">2<em>x</em></div><div class="label">Average<br>conversion lift</div></div>
+          <div class="stat"><div class="num">12<em>+</em></div><div class="label">Years building<br>global brands</div></div>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <!-- Replace src with your founder photo -->
+        <img src="assets/founder.jpg" alt="Portrait of MethodHQ founder working on a laptop" loading="eager" onerror="this.style.display='none';this.parentNode.style.background='linear-gradient(135deg,#EFE8DB,#F7F3EC)'"/>
+        <div class="hero-tag"><span class="pulse"></span>Taking on Q2 projects</div>
+        <div class="hero-badge">
+          <div class="avatar">M</div>
+          <div class="meta">
+            <strong>Trusted by 40+ brands</strong>
+            <span>From startups to global names</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== LOGO MARQUEE ========== -->
+<section class="marquee" aria-label="Brands we've worked with">
+  <div class="marquee-label">Experience with the world's most loved brands</div>
+  <div class="marquee-track">
+    <span class="marquee-item">McDonald's</span>
+    <span class="marquee-item">●</span>
+    <span class="marquee-item">Starbucks</span>
+    <span class="marquee-item">●</span>
+    <span class="marquee-item">Virgin Active</span>
+    <span class="marquee-item">●</span>
+    <span class="marquee-item">Method Studio</span>
+    <span class="marquee-item">●</span>
+    <span class="marquee-item">The Laser Clinic</span>
+    <span class="marquee-item">●</span>
+    <!-- Loop -->
+    <span class="marquee-item">McDonald's</span>
+    <span class="marquee-item">●</span>
+    <span class="marquee-item">Starbucks</span>
+    <span class="marquee-item">●</span>
+    <span class="marquee-item">Virgin Active</span>
+    <span class="marquee-item">●</span>
+    <span class="marquee-item">Method Studio</span>
+    <span class="marquee-item">●</span>
+    <span class="marquee-item">The Laser Clinic</span>
+    <span class="marquee-item">●</span>
+  </div>
+</section>
+
+<!-- ========== SERVICES ========== -->
+<section id="services">
+  <div class="container">
+    <div class="services-head">
+      <div>
+        <span class="eyebrow">What we do</span>
+        <h2 style="margin-top:18px">Four ways we help<br>brands grow.</h2>
+      </div>
+      <p>A focused offer, not a buffet. Every engagement is built around outcomes — whether that's a sharper brand, more leads, or a launch that lands.</p>
+    </div>
+
+    <div class="services-grid">
+
+      <article class="service-card">
+        <span class="svc-num">01 — Service</span>
+        <div class="svc-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14.5 14.5 0 0 1 0 18M12 3a14.5 14.5 0 0 0 0 18"/></svg>
+        </div>
+        <h3>Brand Strategy</h3>
+        <p class="svc-desc">Positioning, messaging and brand architecture that gives your team a north star and your audience a reason to care.</p>
+        <a href="#" class="svc-link">Explore strategy <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      </article>
+
+      <article class="service-card">
+        <span class="svc-num">02 — Service</span>
+        <div class="svc-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        </div>
+        <h3>Branding &amp; Identity</h3>
+        <p class="svc-desc">Logos, visual systems and brand guidelines crafted to feel timeless on day one and consistent across every touchpoint.</p>
+        <a href="#" class="svc-link">Explore branding <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      </article>
+
+      <article class="service-card">
+        <span class="svc-num">03 — Service</span>
+        <div class="svc-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </div>
+        <h3>Web Design &amp; Build</h3>
+        <p class="svc-desc">Beautiful, fast websites engineered to convert. We design and ship on Webflow, WordPress and custom stacks.</p>
+        <a href="#" class="svc-link">Explore web <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      </article>
+
+      <article class="service-card">
+        <span class="svc-num">04 — Service</span>
+        <div class="svc-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <h3>Campaigns &amp; Events</h3>
+        <p class="svc-desc">From launches to live activations — campaigns that get people talking and events that turn audiences into advocates.</p>
+        <a href="#" class="svc-link">Explore campaigns <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ========== WORK / CASE STUDIES ========== -->
+<section class="work" id="work">
+  <div class="container">
+    <div class="work-head">
+      <span class="eyebrow">Selected Work</span>
+      <h2>Real brands.<br>Real results.</h2>
+      <p>A glimpse at how we've helped founders grow — with strategy, story and a lot of heart.</p>
+    </div>
+
+    <div class="work-grid">
+
+      <article class="case case-1">
+        <div class="case-img"></div>
+        <div class="case-content">
+          <span class="case-tag">Branding · Strategy</span>
+          <h3>Rebranding an AI startup for Series&nbsp;A</h3>
+          <div class="case-stat">
+            <div class="big">83<em>%</em></div>
+            <div class="label">annual<br>revenue growth</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="case case-2">
+        <div class="case-img"></div>
+        <div class="case-content">
+          <span class="case-tag">Marketing · Web</span>
+          <h3>A full marketing overhaul for The Laser Clinic</h3>
+          <div class="case-stat">
+            <div class="big">121<em>%</em></div>
+            <div class="label">YoY<br>revenue growth</div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="work-cta">
+      <a href="#" class="btn btn-secondary">View all case studies
+        <svg class="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ========== ABOUT / FOUNDER ========== -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-img">
+        <!-- Replace src with the founder photo -->
+        <img src="assets/founder.jpg" alt="Founder of MethodHQ" onerror="this.style.display='none';this.parentNode.style.background='linear-gradient(135deg,#EFE8DB,#F7F3EC)'"/>
+      </div>
+      <div>
+        <span class="eyebrow">Meet the founder</span>
+        <h2>A boutique studio<br>with global experience.</h2>
+        <p class="about-lead">"After 12 years marketing for global brands like McDonald's, Starbucks and Virgin Active, I built MethodHQ to give ambitious businesses the same firepower — without the agency overhead."</p>
+        <p>MethodHQ is a small, senior team of marketers, designers and storytellers. No juniors learning on your dime. No bloated retainers. Just sharp thinking and beautiful execution from people who've done it at scale.</p>
+        <p>We work with founders, marketing leads and brand owners who want a partner — not a vendor.</p>
+        <div class="about-sign">
+          <div>
+            <div class="about-sign-name">Founder, MethodHQ</div>
+            <div class="about-sign-role">Strategy &amp; creative direction</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== PROCESS ========== -->
+<section class="process">
+  <div class="container">
+    <div class="process-head">
+      <span class="eyebrow">How we work</span>
+      <h2 style="margin-top:18px">A clear process,<br>not a black box.</h2>
+      <p>From the first conversation to the final report — you'll always know where we are and what's next.</p>
+    </div>
+    <div class="process-grid">
+      <div class="step"><span class="step-num">— 01</span><h3>Discover</h3><p>We dig into your goals, audience and competitors to understand what's actually getting in the way.</p></div>
+      <div class="step"><span class="step-num">— 02</span><h3>Strategise</h3><p>A focused plan with clear positioning, messaging and the channels that will move the needle.</p></div>
+      <div class="step"><span class="step-num">— 03</span><h3>Create</h3><p>Beautiful brand, web and content work — designed to perform, not just look pretty.</p></div>
+      <div class="step"><span class="step-num">— 04</span><h3>Grow</h3><p>We measure, optimise and iterate so every pound spent compounds into the next quarter.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== TESTIMONIAL ========== -->
+<section class="testimonial">
+  <div class="testimonial-inner">
+    <span class="eyebrow">Client love</span>
+    <blockquote>"MethodHQ didn't just rebrand us — they <em>rewired how we think</em> about our customers. Our revenue grew 121% in the year that followed."</blockquote>
+    <div class="testimonial-author">
+      <div class="avatar">L</div>
+      <div class="info">
+        <strong>Founder</strong>
+        <span>The Laser Clinic</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FINAL CTA ========== -->
+<section class="cta-band" id="contact">
+  <div class="container">
+    <div class="cta-card">
+      <div class="cta-card-grid">
+        <div>
+          <span class="eyebrow" style="color:var(--sky)">Let's build something</span>
+          <h2 style="margin-top:18px">Ready to grow<br>your <em>brand?</em></h2>
+          <p>Tell us about your business and what you're trying to achieve. We'll come back within 24 hours with honest thoughts and next steps.</p>
+        </div>
+        <div class="cta-card-actions">
+          <a href="mailto:hello@methodhq.com" class="btn btn-primary">
+            Start the conversation
+            <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+          <span style="color:rgba(255,255,255,.6);font-size:13px">or email&nbsp;<a href="mailto:hello@methodhq.com" style="color:#fff;text-decoration:underline">hello@methodhq.com</a></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="logo">Method<span class="dot"></span></div>
+        <p>A boutique marketing studio helping ambitious brands grow with strategy, design and storytelling.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#">Brand Strategy</a></li>
+          <li><a href="#">Branding</a></li>
+          <li><a href="#">Web Design</a></li>
+          <li><a href="#">Campaigns</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Studio</h4>
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#work">Work</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Connect</h4>
+        <ul>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">LinkedIn</a></li>
+          <li><a href="mailto:hello@methodhq.com">Email</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 MethodHQ. All rights reserved.</span>
+      <span>Crafted with care.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Subtle nav border on scroll
+  const nav = document.getElementById('nav');
+  const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 12);
+  document.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+</script>
+
+</body>
+</html>
