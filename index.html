@@ -245,8 +245,9 @@
     content:"";position:absolute;inset:0;
     background:linear-gradient(180deg,rgba(15,22,38,.0) 30%,rgba(15,22,38,.85));
   }
-  .case-1 .case-img{background:linear-gradient(135deg,#1E48B5 0%,#0F2A6B 100%)}
-  .case-2 .case-img{background:linear-gradient(135deg,#83C5F4 0%,#1E48B5 100%)}
+  .case-1 .case-img{background:#0F2A6B url('https://images.unsplash.com/photo-1531746790731-6c087fecd65a?auto=format&fit=crop&w=1400&q=80') center/cover}
+  .case-2 .case-img{background:#1E48B5 url('https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=1400&q=80') center/cover}
+  .case::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(30,72,181,.45),rgba(15,42,107,.25));z-index:1;mix-blend-mode:multiply}
   .case-content{
     position:absolute;left:0;right:0;bottom:0;padding:40px;color:#fff;z-index:2;
   }
@@ -265,6 +266,23 @@
   .case-stat .big em{font-style:italic;color:var(--sky);font-weight:400}
   .case-stat .label{font-size:13px;opacity:.8;line-height:1.4}
   .work-cta{text-align:center;margin-top:64px}
+
+  /* ---------- GALLERY ---------- */
+  .gallery-head{display:flex;justify-content:space-between;align-items:end;margin-bottom:56px;gap:32px;flex-wrap:wrap}
+  .gallery-head h2{margin-top:18px}
+  .gallery-head p{color:var(--muted);max-width:380px;font-size:16px}
+  .gallery-grid{display:grid;grid-template-columns:repeat(12,1fr);grid-auto-rows:200px;gap:20px}
+  .g{position:relative;border-radius:var(--radius-lg);overflow:hidden;background:var(--cream-2);margin:0}
+  .g img{width:100%;height:100%;object-fit:cover;transition:transform .9s var(--ease)}
+  .g:hover img{transform:scale(1.06)}
+  .g::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 60%,rgba(15,22,38,.4));opacity:0;transition:opacity .3s var(--ease)}
+  .g:hover::after{opacity:1}
+  .g-cap{position:absolute;left:22px;bottom:18px;color:#fff;font-size:13px;font-weight:600;letter-spacing:.04em;opacity:0;transform:translateY(8px);transition:all .35s var(--ease);z-index:2}
+  .g:hover .g-cap{opacity:1;transform:translateY(0)}
+  .g-1{grid-column:1/6;grid-row:1/3}
+  .g-2{grid-column:6/10;grid-row:1/2}
+  .g-3{grid-column:10/13;grid-row:1/3}
+  .g-4{grid-column:6/10;grid-row:2/3}
 
   /* ---------- ABOUT / FOUNDER ---------- */
   .about-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:80px;align-items:center}
@@ -355,6 +373,11 @@
     .services-head{grid-template-columns:1fr;gap:24px}
     .work-grid{grid-template-columns:1fr;gap:24px}
     .case:nth-child(2){margin-top:0}
+    .gallery-grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:180px;gap:14px}
+    .g-1{grid-column:1/3;grid-row:1/3}
+    .g-2{grid-column:1/2;grid-row:3/4}
+    .g-3{grid-column:2/3;grid-row:3/5}
+    .g-4{grid-column:1/2;grid-row:4/5}
     .about-grid{grid-template-columns:1fr;gap:48px}
     .about-img{max-width:420px}
     .process-grid{grid-template-columns:repeat(2,1fr)}
@@ -425,8 +448,8 @@
       </div>
 
       <div class="hero-visual">
-        <!-- Replace src with your founder photo -->
-        <img src="assets/founder.jpg" alt="Portrait of MethodHQ founder working on a laptop" loading="eager" onerror="this.style.display='none';this.parentNode.style.background='linear-gradient(135deg,#EFE8DB,#F7F3EC)'"/>
+        <!-- Replace src with your founder photo. Falls back to a stand-in until then. -->
+        <img src="assets/founder.jpg" alt="Portrait of MethodHQ founder working on a laptop" loading="eager" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=900&q=80'"/>
         <div class="hero-tag"><span class="pulse"></span>Taking on Q2 projects</div>
         <div class="hero-badge">
           <div class="avatar">M</div>
@@ -570,13 +593,44 @@
   </div>
 </section>
 
+<!-- ========== STUDIO / GALLERY ========== -->
+<section class="gallery">
+  <div class="container">
+    <div class="gallery-head">
+      <div>
+        <span class="eyebrow">Inside the studio</span>
+        <h2>Strategy. Craft.<br>A bit of obsession.</h2>
+      </div>
+      <p>A peek behind the curtain — the workshops, the whiteboards and the late-night print runs that shape every brand we build.</p>
+    </div>
+    <div class="gallery-grid">
+      <figure class="g g-1">
+        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=80" alt="Strategy workshop with sticky notes and planning"/>
+        <figcaption class="g-cap">Strategy workshops</figcaption>
+      </figure>
+      <figure class="g g-2">
+        <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=900&q=80" alt="Team collaborating on a marketing project"/>
+        <figcaption class="g-cap">Team collaboration</figcaption>
+      </figure>
+      <figure class="g g-3">
+        <img src="https://images.unsplash.com/photo-1561070791-2526d30994b8?auto=format&fit=crop&w=900&q=80" alt="Brand guidelines and print collateral"/>
+        <figcaption class="g-cap">Brand systems</figcaption>
+      </figure>
+      <figure class="g g-4">
+        <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=900&q=80" alt="Designer at desk with laptop and notes"/>
+        <figcaption class="g-cap">Studio life</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
 <!-- ========== ABOUT / FOUNDER ========== -->
 <section class="about" id="about">
   <div class="container">
     <div class="about-grid">
       <div class="about-img">
         <!-- Replace src with the founder photo -->
-        <img src="assets/founder.jpg" alt="Founder of MethodHQ" onerror="this.style.display='none';this.parentNode.style.background='linear-gradient(135deg,#EFE8DB,#F7F3EC)'"/>
+        <img src="assets/founder.jpg" alt="Founder of MethodHQ" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=900&q=80'"/>
       </div>
       <div>
         <span class="eyebrow">Meet the founder</span>
